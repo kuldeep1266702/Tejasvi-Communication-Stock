@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tejasvi Communication mobile stock record and inventory management.">
+  <title>Tejasvi Communication | Stock Record</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Tejasvi Communication home">
+      <span class="brand-mark">TC</span>
+      <span><strong>TEJASVI COMMUNICATION</strong><small>STOCK RECORD</small></span>
+    </a>
+    <nav>
+      <button class="nav-button active" data-view="stock">Stock display</button>
+      <button class="nav-button" data-view="admin">Admin dashboard</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section id="stockView" class="view">
+      <div class="page-heading">
+        <div><span class="eyebrow">Inventory overview</span><h1>Mobile stock</h1>
+          <p>Browse available models, colours and storage variants.</p></div>
+        <span id="lastUpdated" class="muted small">Stock record</span>
+      </div>
+      <div class="stats">
+        <article class="stat-card"><span>Product variants</span><strong id="variantCount">0</strong></article>
+        <article class="stat-card"><span>Total units</span><strong id="unitCount">0</strong></article>
+        <article class="stat-card"><span>Brands</span><strong id="brandCount">0</strong></article>
+        <article class="stat-card"><span>Low stock (5 or less)</span><strong id="lowCount">0</strong></article>
+      </div>
+      <div class="filters">
+        <input id="searchInput" type="search" placeholder="Search brand or model..." aria-label="Search stock">
+        <select id="brandFilter" aria-label="Filter by brand"><option value="">All brands</option></select>
+        <select id="colorFilter" aria-label="Filter by colour"><option value="">All colours</option></select>
+        <select id="stockFilter" aria-label="Filter by stock"><option value="">All stock</option><option value="available">In stock</option><option value="low">Low stock</option><option value="out">Out of stock</option></select>
+      </div>
+      <div id="productGrid" class="product-grid" aria-live="polite"></div>
+    </section>
+
+    <section id="loginView" class="view hidden">
+      <form id="loginForm" class="panel login-panel">
+        <span class="eyebrow">Restricted area</span><h1>Admin login</h1>
+        <p class="muted">Sign in to manage the stock record.</p>
+        <label for="adminPassword">Demo password</label>
+        <input id="adminPassword" type="password" placeholder="Enter demo password" required>
+        <button class="button primary full-width" type="submit">Sign in</button>
+        <p class="small muted">Demo password: <b>tejasvi123</b></p>
+        <div class="notice">Prototype only: this demo password is not secure for a public website.</div>
+      </form>
+    </section>
+
+    <section id="adminView" class="view hidden">
+      <div class="page-heading">
+        <div><span class="eyebrow">Control centre</span><h1>Admin dashboard</h1><p>Add phones, update quantities and manage product photos.</p></div>
+        <button id="logoutButton" class="button secondary">Log out</button>
+      </div>
+      <div class="notice"><b>Local prototype:</b> Records are saved in this browser on this device. For shared real-time updates across devices, connect a hosted database and secure authentication.</div>
+      <section class="panel">
+        <h2 id="formHeading">Add mobile stock</h2>
+        <form id="stockForm">
+          <input type="hidden" id="productId">
+          <div class="form-grid">
+            <div class="field"><label for="brand">Brand *</label><input id="brand" required placeholder="e.g. Samsung"></div>
+            <div class="field"><label for="model">Model *</label><input id="model" required placeholder="e.g. Galaxy S series"></div>
+            <div class="field"><label for="color">Colour *</label><input id="color" required placeholder="e.g. Titanium Black"></div>
+            <div class="field"><label for="ram">RAM</label><input id="ram" placeholder="e.g. 12 GB"></div>
+            <div class="field"><label for="storage">Storage</label><input id="storage" placeholder="e.g. 256 GB"></div>
+            <div class="field"><label for="quantity">Quantity *</label><input id="quantity" type="number" min="0" required value="1"></div>
+            <div class="field"><label for="price">Selling price (₹)</label><input id="price" type="number" min="0" placeholder="Optional"></div>
+            <div class="field"><label for="imageFile">Upload product image</label><input id="imageFile" type="file" accept="image/*"></div>
+            <div class="field field-wide"><label for="imageUrl">Image URL (optional)</label><input id="imageUrl" type="url" placeholder="https://..."></div>
+          </div>
+          <div class="form-actions">
+            <button class="button primary" type="submit">Save stock item</button>
+            <button id="clearFormButton" class="button secondary" type="button">Clear form</button>
+          </div>
+        </form>
+      </section>
+      <section class="panel">
+        <h2>Inventory records</h2>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Product</th><th>Colour</th><th>RAM / Storage</th><th>Quantity</th><th>Price</th><th>Actions</th></tr></thead>
+          <tbody id="inventoryRows"></tbody>
+        </table></div>
+      </section>
+    </section>
+  </main>
+  <footer>© <span id="year"></span> Tejasvi Communication · Stock Record</footer>
+  <script src="js/app.js"></script>
+</body>
+</html>
